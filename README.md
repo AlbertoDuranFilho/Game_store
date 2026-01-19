@@ -1,98 +1,231 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# GameStore 🎮 — Onde a paixão por games vira experiência.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A **GameStore** é uma aplicação Backend para uma loja de games, desenvolvida com **NestJS** e **TypeORM**, focada no gerenciamento de **produtos** e **categorias**. O sistema oferece uma base sólida para controle de jogos e consoles, permitindo operações completas de cadastro, consulta, atualização e remoção de dados por meio de uma **API REST organizada e escalável**.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 📌 Sumário
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+1. [Visão Geral do Projeto](#-visão-geral-do-projeto)
+2. [Principais Funcionalidades](#-principais-funcionalidades)
+3. [Tecnologias Utilizadas](#-tecnologias-utilizadas)
+4. [Arquitetura e Banco de Dados](#-arquitetura-e-banco-de-dados)
+5. [Requisitos do Sistema](#-requisitos-do-sistema)
+6. [Instalação](#-instalação)
+7. [Estrutura do Projeto](#-estrutura-do-projeto)
+8. [Boas Práticas](#-boas-práticas)
+9. [Como Contribuir](#-como-contribuir)
 
-## Project setup
+---
 
-```bash
-$ npm install
+# 🔎 Visão Geral do Projeto
+
+## 🕹️ Descrição do Projeto
+
+Esta aplicação é um **Backend para uma loja de games**, desenvolvido com **NestJS** e **TypeORM**, seguindo boas práticas de organização, validação e relacionamento entre entidades.
+
+O sistema permite o gerenciamento de **categorias** e **produtos**, onde atualmente existem duas categorias principais:
+
+- **Jogos**
+- **Consoles**
+
+Cada produto possui informações como **nome**, **imagem (URL)**, **preço**, **quantidade em estoque**, **data de atualização** e está vinculado a uma **categoria**.
+
+A aplicação implementa um **CRUD completo (Create, Read, Update, Delete)**, possibilitando:
+
+### 📂 Categorias
+
+- Criar novas categorias
+- Listar todas as categorias
+- Buscar categoria por **ID** ou **nome**
+- Atualizar dados de uma categoria
+- Remover uma categoria (com exclusão em cascata dos produtos relacionados)
+
+### 🎮 Produtos
+
+- Criar novos produtos
+- Listar todos os produtos
+- Buscar produtos por **ID** ou **nome**
+- Atualizar informações de um produto
+- Deletar produtos
+
+O relacionamento entre as entidades é do tipo **Um para Muitos (1:N)**, onde uma categoria pode possuir vários produtos, garantindo integridade referencial no banco de dados.
+
+Este backend serve como base para aplicações frontend ou mobile, oferecendo uma **API REST organizada, validada e escalável** para o gerenciamento de uma loja de games.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+- **Node.js** & **NestJS**: Framework progressivo para construção de aplicações server-side eficientes.
+- **TypeScript**: Adição de tipagem estática ao JavaScript para maior segurança.
+- **MySQL**: Banco de dados relacional para persistência de dados.
+- **TypeORM**: Ferramenta de mapeamento objeto-relacional para integração com o banco.
+- **Class Validator**: Validação de dados de entrada nos DTOs.
+
+---
+
+## 🧱 Arquitetura e Banco de Dados
+
+O projeto segue a arquitetura modular do NestJS, dividindo as responsabilidades em **Controllers** (rotas), **Services** (regras de negócio) e **Entities** (mapeamento do banco).
+
+### Modelo de Dados (Tabela `tb_produtos`)
+
+Conforme o diagrama, as entidades principais possuem os seguintes atributos:
+Produtos:
+
+- `id`: Identificador único (Primary Key).
+- `nome`: Nome do produto (VARCHAR).
+- `foto`: Link da imagem do produto (VARCHAR).
+- `preco`: Valor do produto (INT/DECIMAL).
+- `quantidade`: Quantidade de produtos (INT/DECIMAL).
+- `data`: Data de modificação (DATETIME).
+
+Categorias:
+
+- `id`: Identificador único (Primary Key).
+- `nome`: Nome do produto (VARCHAR).
+- `descricao`: Descrição da categoria (VARCHAR).
+
+```mermaid
+erDiagram
+    TB_CATEGORIAS ||--o{ TB_PRODUTOS : possui
+
+    TB_CATEGORIAS {
+        int id PK
+        varchar(100) nome
+        varchar(1000) descricao
+    }
+
+    TB_PRODUTOS {
+        int id PK
+        varchar(255) nome
+        varchar(1000) foto
+        number preco
+        int quantidade
+        datetime data
+        int categoriaId FK
+    }
 ```
 
-## Compile and run the project
+---
+
+## ▶️ Como executar o projeto
+
+### 📋 Pré-requisitos
+
+1. **Node.js** (v18 ou superior)
+2. **MySQL** (v8.0 ou superior)
+3. Gerenciador de pacotes (**npm** ou **yarn**)
+
+### 🚀 Passo a passo
+
+1. Clone o repositório:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/SEU-USUARIO/Game_store.git
 ```
 
-## Run tests
+2. Entre na pasta:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cd Game-store
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+3. Instale as dependências:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+4. Execute a aplicação em modo de desenvolvimento:
 
-## Resources
+```bash
+npm run start:dev
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### 📂 Estrutura do Projeto
 
-## Support
+```bash
+├── node_modules
+├── src
+│   ├── Categoria
+│   │   ├── controllers
+│   │   │   └── categoria.controller.ts
+│   │   ├── entities
+│   │   │   └── categoria.entity.ts
+│   │   ├── services
+│   │   │   └── categoria.service.ts
+│   │   └── categoria.module.ts
+│   ├── Produto
+│   │   ├── controllers
+│   │   │   └── produto.controller.ts
+│   │   ├── entities
+│   │   │   └── produto.entity.ts
+│   │   ├── services
+│   │   │   └── produto.service.ts
+│   │   └── produto.module.ts
+│   ├── app.controller.ts
+│   ├── app.module.ts
+│   ├── app.service.ts
+│   └── main.ts
+├── test
+├── .gitignore
+├── .prettierrc
+├── eslint.config.mjs
+├── nest-cli.json
+├── package.json
+├── package-lock.json
+├── README.md
+├── tsconfig.build.json
+└── tsconfig.json
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+---
 
-## Stay in touch
+## 📏 Boas Práticas e Padrões do Projeto
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Padrões de código
+  - Siga o guia de estilo definido (ex.: ESLint, PEP8, SonarLint etc.).
+  - Nomeie módulos e arquivos de forma clara e consistente.
+- Commits
+  - Use mensagens de commit descritivas.
+  - Sugestão: padrão semântico (ex.: feat:, fix:, docs:, chore:).
+- Testes - Escreva testes para novas funcionalidades.
+  Não quebre testes existentes sem justificativa e atualização adequada.
+- Logs e monitoramento
+  - Use níveis de log adequados (info, warn, error, debug).
+  - Evite logar dados sensíveis.
 
-## License
+## 🤝 Como Contribuir
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+1. Faça um fork do repositório (se aplicável).
+2. Crie uma branch descritiva:
+
+```bash
+git checkout -b feat/nome-da-funcionalidade
+```
+
+3. Implemente a funcionalidade ou correção, seguindo:
+   - Padrões de código
+   - Padrão de testes
+4. Execute os testes antes de enviar:
+
+```bash
+npm test
+```
+
+5. Abra um Pull Request, descrevendo:
+   - O problema resolvido ou funcionalidade criada.
+   - Passos para testar.
+   - Impactos em outras partes do sistema (se houver).
+
+---
+
+<table>
+  <tr>
+    <td align="center"><a href="https://www.linkedin.com/in/alberto-janeiro"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/67593467?v=44" width="100px;" alt=""/><br /><sub><b>Alberto Durán</b></sub></a><br />❤️</td>
+  </tr>
+</table>
