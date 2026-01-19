@@ -146,6 +146,66 @@ npm run start:dev
 
 ---
 
+## 🧪 Testes da API (Insomnia)
+
+Os testes da API foram realizados utilizando o **Insomnia**, validando todas as operações do CRUD para **Categorias** e **Produtos**, garantindo o correto funcionamento dos endpoints.
+
+### 📂 Categorias
+
+#### ✅ Listar todas as categorias
+
+![Listar Categorias](./assets/insomnia/categorias/categorias-listar.png)
+
+#### ✅ Buscar categoria por ID
+
+![Buscar Categoria por ID](./assets/insomnia/categorias/categorias-id.png)
+
+#### ✅ Buscar categoria por nome
+
+![Buscar Categoria por Nome](./assets/insomnia/categorias/categorias-nome.png)
+
+#### ✅ Criar nova categoria
+
+![Criar Categoria](./assets/insomnia/categorias/categorias-post.png)
+
+#### ✅ Atualizar categoria
+
+![Atualizar Categoria](./assets/insomnia/categorias/categorias-put.png)
+
+#### ✅ Deletar categoria
+
+![Deletar Categoria](./assets/insomnia/categorias/categorias-delete.png)
+
+---
+
+### 🎮 Produtos
+
+#### ✅ Listar todos os produtos
+
+![Listar Produtos](./assets/insomnia/produtos/produtos-listar.png)
+
+#### ✅ Buscar produto por ID
+
+![Buscar Produto por ID](./assets/insomnia/produtos/produtos-id.png)
+
+#### ✅ Buscar produto por nome
+
+![Buscar Produto por Nome](./assets/insomnia/produtos/produtos-nome.png)
+
+#### ✅ Criar novo produto
+
+![Criar Produto](./assets/insomnia/produtos/produtos-post.png)
+
+#### ✅ Atualizar produto
+
+![Atualizar Produto](./assets/insomnia/produtos/produtos-put.png)
+
+#### ✅ Deletar produto
+
+![Deletar Produto](./assets/insomnia/produtos/produtos-delete.png)
+
+---
+
 ### 📂 Estrutura do Projeto
 
 ```bash
@@ -171,6 +231,21 @@ npm run start:dev
 │   ├── app.module.ts
 │   ├── app.service.ts
 │   └── main.ts
+├── assets
+│   └── insomnia
+│        ├── categorias
+│        │   ├── categorias-listar.png
+│        │   ├── categorias-id.png
+│        │   ├── categorias-post.png
+│        │   ├── categorias-put.png
+│        │   └── categorias-delete.png
+│        └── produtos
+│             ├── produtos-listar.png
+│             ├── produtos-id.png
+│             ├── produtos-nome.png
+│             ├── produtos-post.png
+│             ├── produtos-put.png
+│             └── produtos-delete.png
 ├── test
 ├── .gitignore
 ├── .prettierrc
